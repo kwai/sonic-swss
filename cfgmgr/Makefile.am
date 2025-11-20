@@ -5,7 +5,7 @@ LIBNL_LIBS = -lnl-genl-3 -lnl-route-3 -lnl-3
 SAIMETA_LIBS = -lsaimeta -lsaimetadata -lzmq
 COMMON_LIBS = -lswsscommon -lpthread
 
-bin_PROGRAMS = vlanmgrd teammgrd portmgrd intfmgrd buffermgrd vrfmgrd nbrmgrd vxlanmgrd sflowmgrd natmgrd coppmgrd tunnelmgrd macsecmgrd fabricmgrd stpmgrd
+bin_PROGRAMS = vlanmgrd teammgrd portmgrd intfmgrd buffermgrd vrfmgrd nbrmgrd vxlanmgrd sflowmgrd natmgrd coppmgrd tunnelmgrd macsecmgrd fabricmgrd stpmgrd tammgrd
 
 cfgmgrdir = $(datadir)/swss
 
@@ -55,6 +55,11 @@ intfmgrd_SOURCES = intfmgrd.cpp intfmgr.cpp $(top_srcdir)/lib/subintf.cpp $(COMM
 intfmgrd_CFLAGS = $(DBGFLAGS) $(AM_CFLAGS) $(CFLAGS_COMMON) $(CFLAGS_SAI) $(CFLAGS_ASAN)
 intfmgrd_CPPFLAGS = $(DBGFLAGS) $(AM_CFLAGS) $(CFLAGS_COMMON) $(CFLAGS_SAI) $(CFLAGS_ASAN)
 intfmgrd_LDADD = $(LDFLAGS_ASAN) $(COMMON_LIBS) $(SAIMETA_LIBS)
+
+tammgrd_SOURCES = tammgrd.cpp tammgr.cpp $(COMMON_ORCH_SOURCE) shellcmd.h
+tammgrd_CFLAGS = $(DBGFLAGS) $(AM_CFLAGS) $(CFLAGS_COMMON) $(CFLAGS_SAI) $(CFLAGS_ASAN)
+tammgrd_CPPFLAGS = $(DBGFLAGS) $(AM_CFLAGS) $(CFLAGS_COMMON) $(CFLAGS_SAI) $(CFLAGS_ASAN)
+tammgrd_LDADD = $(LDFLAGS_ASAN) $(COMMON_LIBS) $(SAIMETA_LIBS)
 
 buffermgrd_SOURCES = buffermgrd.cpp buffermgr.cpp buffermgrdyn.cpp $(COMMON_ORCH_SOURCE) shellcmd.h
 buffermgrd_CFLAGS = $(DBGFLAGS) $(AM_CFLAGS) $(CFLAGS_COMMON) $(CFLAGS_SAI) $(CFLAGS_ASAN)
@@ -123,6 +128,7 @@ coppmgrd_SOURCES += ../gcovpreload/gcovpreload.cpp
 tunnelmgrd_SOURCES += ../gcovpreload/gcovpreload.cpp
 macsecmgrd_SOURCES += ../gcovpreload/gcovpreload.cpp
 stpmgrd_SOURCES += ../gcovpreload/gcovpreload.cpp
+tammgrd_SOURCES += ../gcovpreload/gcovpreload.cpp
 endif
 
 if ASAN_ENABLED
@@ -141,5 +147,6 @@ tunnelmgrd_SOURCES += $(top_srcdir)/lib/asan.cpp
 macsecmgrd_SOURCES += $(top_srcdir)/lib/asan.cpp
 fabricmgrd_SOURCES += $(top_srcdir)/lib/asan.cpp
 stpmgrd_SOURCES += $(top_srcdir)/lib/asan.cpp
+tammgrd_SOURCES += $(top_srcdir)/lib/asan.cpp
 endif
 

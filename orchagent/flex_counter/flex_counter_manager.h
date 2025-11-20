@@ -43,6 +43,7 @@ enum class CounterType
     DASH_METER,
     SRV6,
     SWITCH,
+    TAM_INT,
 };
 
 extern bool gTraditionalFlexCounter;
