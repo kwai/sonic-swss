@@ -1,14 +1,12 @@
-#ifndef SWSS_TAMORCH_H
-#define SWSS_TAMORCH_H
-
-#include "sai.h"
-#include "orch.h"
-#include "portsorch.h"
+#pragma once
 
 #include <map>
 #include <string>
 #include <inttypes.h>
 #include <netinet/in.h>
+
+#include "orch.h"
+#include "portsorch.h"
 
 using namespace swss;
 
@@ -38,7 +36,7 @@ struct TamSamplerEntry {
 class TamOrch : public Orch
 {
 public:
-    TamOrch(DBConnector *appDb, const std::vector<std::string> &tableNames);
+    TamOrch(DBConnector *appDb, std::vector<std::string> &tableNames);
 
 private:
     virtual void doTask(Consumer& consumer);
@@ -160,5 +158,4 @@ private:
     int m_marvell_mod_queue;
 
 };
-#endif /* SWSS_TAMORCH_H */
 

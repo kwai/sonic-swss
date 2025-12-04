@@ -423,7 +423,7 @@ bool OrchDaemon::init()
         APP_TAM_SAMPLER_TABLE,
         APP_TAM_INT_TABLE
     };
-    TamOrch *tam_orch = new TamOrch(m_applDb,  tam_tables);
+    TamOrch *tam_orch = new TamOrch(m_applDb, tam_tables);
 
     vector<string> debug_counter_tables = {
         CFG_DEBUG_COUNTER_TABLE_NAME,

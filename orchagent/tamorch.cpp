@@ -27,7 +27,7 @@ extern sai_policer_api_t*  sai_policer_api;
 // use cpu queue 46 as default
 #define MRVL_DEFAULT_MOD_QUEUE    46
 
-TamOrch::TamOrch(DBConnector *appDb, const vector<string> &tableNames) :
+TamOrch::TamOrch(DBConnector *appDb, vector<string> &tableNames) :
         Orch(appDb, tableNames),
         m_flex_counter_manager(TAM_INT_FLEX_COUNTER_GROUP, StatsMode::READ, TAM_INT_DEFAULT_POLLING_INTERVAL_MS, false)
 {
