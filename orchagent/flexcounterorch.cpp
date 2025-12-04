@@ -18,6 +18,7 @@
 #include "switchorch.h"
 #include "debugcounterorch.h"
 #include "fabricportsorch.h"
+#include "tamorch.h"
 
 #include "dash/dashorch.h"
 #include "dash/dashmeterorch.h"
@@ -59,6 +60,7 @@ int gFlexCounterDelaySec;
 #define WRED_PORT_KEY               "WRED_ECN_PORT"
 #define SRV6_KEY                    "SRV6"
 #define SWITCH_KEY                  "SWITCH"
+#define TAM_INT_KEY                 "TAM_INT"
 
 unordered_map<string, string> flexCounterGroupMap =
 {
@@ -87,7 +89,8 @@ unordered_map<string, string> flexCounterGroupMap =
     {"WRED_ECN_PORT", WRED_PORT_STAT_COUNTER_FLEX_COUNTER_GROUP},
     {"WRED_ECN_QUEUE", WRED_QUEUE_STAT_COUNTER_FLEX_COUNTER_GROUP},
     {SRV6_KEY, SRV6_STAT_COUNTER_FLEX_COUNTER_GROUP},
-    {SWITCH_KEY, SWITCH_STAT_COUNTER_FLEX_COUNTER_GROUP}
+    {SWITCH_KEY, SWITCH_STAT_COUNTER_FLEX_COUNTER_GROUP},
+    {TAM_INT_KEY, TAM_INT_FLEX_COUNTER_GROUP}
 };
 
 

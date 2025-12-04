@@ -63,6 +63,8 @@ TamOrch::TamOrch(DBConnector *appDb, const vector<string> &tableNames) :
             m_marvell_mod_queue = MRVL_DEFAULT_MOD_QUEUE;
         }
     }
+
+    SWSS_LOG_NOTICE("tamorch init");
 }
 
 bool TamOrch::tam_create_samplepacket(sai_object_id_t *samplepacket_id, int sample_rate, sai_samplepacket_type_t sampling_type = SAI_SAMPLEPACKET_TYPE_SLOW_PATH)
@@ -577,6 +579,8 @@ void TamOrch::doTask(Consumer &consumer)
     SWSS_LOG_ENTER();
     Port   port;
     string table_name = consumer.getTableName();
+
+    SWSS_LOG_NOTICE("tamorch: doTask");
 
     if (!gPortsOrch->allPortsReady())
     {

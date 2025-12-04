@@ -35,6 +35,7 @@
 #include "watermarkorch.h"
 #include "policerorch.h"
 #include "sfloworch.h"
+#include "tamorch.h"
 #include "debugcounterorch.h"
 #include "directory.h"
 #include "natorch.h"
