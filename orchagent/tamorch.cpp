@@ -655,34 +655,33 @@ void TamOrch::doTask(Consumer &consumer)
                             continue;
                         }
 
-                        if (!create_tam_collector(&m_tam_collector_id))
+                        if (!create_hostif(&m_sai_hostif_obj) ||
+                            !create_policer(&m_sai_policer_obj) ||
+                            !create_hostif_trap_group(&m_sai_hostif_trap_group_obj) ||
+                            !create_hostif_user_defined_trap(&m_sai_hostif_udt_obj) ||
+                            !create_hostif_table_entry(&m_sai_hostif_table_entry_obj))
                         {
                             it++;
                             continue;
                         }
 
-                        if (m_platform == MRVL_TL_PLATFORM_SUBSTRING)
+
+                        if (!create_tam_collector(&m_tam_collector_id) ||
+                            !create_tam_event(&m_tam_marvell_event_packet_drop_id, TAM_EVENT_ATTR_TYPE_IPP) ||
+                            !create_tam(&m_tam_marvell_id, m_tam_marvell_event_packet_drop_id))
                         {
-                            if (!create_tam_event(&m_tam_marvell_event_packet_drop_id, TAM_EVENT_ATTR_TYPE_IPP))
-                            {
-                                it++;
-                                continue;
-                            }
+                            it++;
+                            continue;
+                        }
 
-                            if (!create_tam(&m_tam_marvell_id, m_tam_marvell_event_packet_drop_id))
-                            {
-                                it++;
-                                continue;
-                            }
 
-                            vector<sai_object_id_t> tam_oid_list;
-                            tam_oid_list.push_back(m_tam_marvell_id);
+                        vector<sai_object_id_t> tam_oid_list;
+                        tam_oid_list.push_back(m_tam_marvell_id);
 
-                            if (!enable_dm_set_switch_attribute(tam_oid_list))
-                            {
-                                it++;
-                                continue;
-                            }
+                        if (!enable_dm_set_switch_attribute(tam_oid_list))
+                        {
+                            it++;
+                            continue;
                         }
 
                         SWSS_LOG_NOTICE("End of set asic chip configuration.");
@@ -699,28 +698,18 @@ void TamOrch::doTask(Consumer &consumer)
                             continue;
                         }
 
-                        if (!disable_dm_set_port_attribute())
+                        if (!del_tam(m_tam_marvell_id) ||
+                            !del_tam_event(m_tam_marvell_event_packet_drop_id) ||
+                            !del_tam_collector(m_tam_collector_id))
                         {
                             it++;
                             continue;
                         }
 
-                        if (m_platform == MRVL_TL_PLATFORM_SUBSTRING)
-                        {
-                            if (!del_tam(m_tam_marvell_id))
-                            {
-                                it++;
-                                continue;
-                            }
-
-                            if (!del_tam_event(m_tam_marvell_event_packet_drop_id))
-                            {
-                                it++;
-                                continue;
-                            }
-                        }
-
-                        if (!del_tam_collector(m_tam_collector_id))
+                        if (!remove_hostif_table_entry(m_sai_hostif_table_entry_obj) ||
+                            !remove_hostif_user_defined_trap(m_sai_hostif_udt_obj) ||
+                            !remove_hostif_trap_group(m_sai_hostif_trap_group_obj) ||
+                            !remove_hostif(m_sai_hostif_obj))
                         {
                             it++;
                             continue;
