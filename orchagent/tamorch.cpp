@@ -909,6 +909,10 @@ bool TamOrch::create_tam_collector(sai_object_id_t* tam_collector_id)
     tam_attr_list[count].value.oid = m_tam_transport_id;
     count++;
 
+    tam_attr_list[count].id = SAI_TAM_COLLECTOR_ATTR_LOCALHOST;
+    attr_list[count].value.oid = true;
+    count++;
+
     tam_attr_list[count].id = SAI_TAM_COLLECTOR_ATTR_HOSTIF_TRAP;
     tam_attr_list[count].value.oid = m_sai_hostif_udt_obj;
     count++;
