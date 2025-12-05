@@ -37,7 +37,7 @@ TamOrch::TamOrch(DBConnector *appDb, vector<string> &tableNames) :
     m_countersDb = make_shared<DBConnector>("COUNTERS_DB", 0);
     m_counterTable = unique_ptr<Table>(new Table(m_countersDb.get(), COUNTERS_INT_PORT_RULE_MAP));
 
-    string platform = getenv("ASIC_VENDOR");
+    string platform = getenv("ASIC_VENDOR") ? getenv("ASIC_VENDOR") : "";
     if (platform == "")
     {
         SWSS_LOG_WARN("Platform environment variable is not defined");
@@ -46,7 +46,7 @@ TamOrch::TamOrch(DBConnector *appDb, vector<string> &tableNames) :
     {
         m_platform = platform;
     }
-    string marvell_mod_queue = getenv("marvell_mod_queue");
+    string marvell_mod_queue = getenv("marvell_mod_queue") ? getenv("marvell_mod_queue") : "";
     if (marvell_mod_queue == "")
     {
         m_marvell_mod_queue = MRVL_DEFAULT_MOD_QUEUE;
